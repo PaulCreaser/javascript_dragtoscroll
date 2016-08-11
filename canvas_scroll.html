@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Application</title>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="canvas_inter.js"></script>
+    <script type="text/javascript">
+        var socket = null;
+	var scroll1 = null;
+	var scroll2 = null;
+	var scroll3 = null;
+	var scroll4 = null;
+        function on_load()
+        {
+            socket = io.connect("http://localhost:8124");
+            socket.on("data",function(json_data)
+	    {
+		var data = JSON.parse(json_data);
+            });
+	    scroll1= new canvas_inter(document, "parent1", "canvas1", socket, 400, 400 );
+	    scroll1.test(1200, 1200);
+
+	    scroll2= new canvas_inter(document, "parent2", "canvas2", socket, 400, 400 );
+	    scroll2.test(1200, 1200);
+
+	    scroll3= new canvas_inter(document, "parent3", "canvas3", socket, 400, 400 );
+	    scroll3.test(1200, 1200);
+
+	    scroll4= new canvas_inter(document, "parent4", "canvas4", socket, 400, 400 );
+	    scroll4.test(1200, 1200);
+        }
+
+        function on_unload()
+        {
+            if (socket != null) socket.disconnect();
+        }
+	</script>
+</head>
+<body onload="on_load()" onunload="on_unload()">
+	<div id="parent" style="width: 100%; height: 100%; margin: 0 auto 0 auto; position: absolute ; overflow: hidden;">
+		<div style="width: 100%; height: 50%; margin: 0 auto 0 auto; position: relative ; overflow: hidden;">
+			<div style="width: 50%; height: 100%; position: relative; float: left; overflow: hidden;">
+				<div id="parent1" style="width: 50%; height: 100%; margin: 0 auto 0 auto; position: relative; overflow: hidden;">
+    					<canvas id="canvas1" style="margin: 0 auto 0 auto; position: absolute;">
+					</canvas>
+				</div>
+			</div>
+			<div style="width: 50%; height: 100%; position: relative; float: right; overflow: hidden;">
+				<div id="parent2" style="width: 50%; height: 100%; margin: 0 auto 0 auto; position: relative; overflow: hidden;">
+    					<canvas id="canvas2" style="margin: 0 auto 0 auto; position: absolute;">
+					</canvas>
+				</div>
+			</div>
+		</div>
+		<div style="width: 100%; height: 50%; margin: 0 auto 0 auto; position: relative ; overflow: hidden;">
+			<div style="width: 50%; height: 100%; position: relative; float: left; overflow: hidden;">
+				<div id="parent3" style="width: 50%; height: 100%; margin: 0 auto 0 auto; position: relative; overflow: hidden;">
+    					<canvas id="canvas3" style="margin: 0 auto 0 auto; position: absolute;">
+					</canvas>
+				</div>
+			</div>
+			<div style="width: 50%; height: 100%; position: relative; float: right; overflow: hidden;">
+				<div id="parent4" style="width: 50%; height: 100%; margin: 0 auto 0 auto; position: relative; overflow: hidden;">
+    					<canvas id="canvas4" style="margin: 0 auto 0 auto; position: absolute;">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
